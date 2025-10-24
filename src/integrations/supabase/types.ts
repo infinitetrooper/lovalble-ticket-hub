@@ -57,6 +57,7 @@ export type Database = {
       }
       assignees: {
         Row: {
+          active: boolean
           avatar_url: string | null
           created_at: string
           email: string
@@ -64,6 +65,7 @@ export type Database = {
           name: string
         }
         Insert: {
+          active?: boolean
           avatar_url?: string | null
           created_at?: string
           email: string
@@ -71,6 +73,7 @@ export type Database = {
           name: string
         }
         Update: {
+          active?: boolean
           avatar_url?: string | null
           created_at?: string
           email?: string
