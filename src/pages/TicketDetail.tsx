@@ -17,6 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import { ConversationTimeline } from "@/components/tickets/ConversationTimeline";
+import { TagsInput } from "@/components/tickets/TagsInput";
 
 const TicketDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -84,6 +85,7 @@ const TicketDetail = () => {
         priority: "Priority",
         assignee_id: "Assignee",
         description: "Description",
+        tags: "Tags",
       };
 
       let displayOldValue = oldValue;
@@ -94,6 +96,9 @@ const TicketDetail = () => {
         const newAssignee = assignees?.find((a) => a.id === value);
         displayOldValue = oldAssignee?.name || "Unassigned";
         displayNewValue = newAssignee?.name || "Unassigned";
+      } else if (field === "tags") {
+        displayOldValue = Array.isArray(oldValue) ? oldValue.join(", ") : "";
+        displayNewValue = Array.isArray(value) ? value.join(", ") : "";
       }
 
       const { error: logError } = await supabase
@@ -340,17 +345,16 @@ const TicketDetail = () => {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Metadata */}
+            {/* Customer Info */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Metadata</CardTitle>
+                <CardTitle className="text-base">Customer</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
                   <User className="h-4 w-4 mt-0.5 text-muted-foreground" />
                   <div className="flex-1 space-y-1">
-                    <p className="text-sm font-medium">Customer</p>
-                    <p className="text-sm">{ticket.customer_name}</p>
+                    <p className="text-sm font-medium">{ticket.customer_name}</p>
                     <p className="text-xs text-muted-foreground">{ticket.customer_email}</p>
                   </div>
                 </div>
@@ -380,41 +384,43 @@ const TicketDetail = () => {
                     </p>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
 
-                {ticket.tags && ticket.tags.length > 0 && (
-                  <>
-                    <Separator />
-                    <div className="flex items-start gap-3">
-                      <Tag className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                      <div className="flex-1 space-y-1">
-                        <p className="text-sm font-medium">Tags</p>
-                        <div className="flex flex-wrap gap-1">
-                          {ticket.tags.map((tag: string, index: number) => (
-                            <span
-                              key={index}
-                              className="px-2 py-1 text-xs rounded-md bg-secondary text-secondary-foreground"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
+            {/* Order Info */}
+            {ticket.order_number && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">Order</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-start gap-3">
+                    <Package className="h-4 w-4 mt-0.5 text-muted-foreground" />
+                    <div className="flex-1 space-y-1">
+                      <p className="text-sm font-medium">Order Number</p>
+                      <p className="text-sm font-mono">{ticket.order_number}</p>
                     </div>
-                  </>
-                )}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
-                {ticket.order_number && (
-                  <>
-                    <Separator />
-                    <div className="flex items-start gap-3">
-                      <Package className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                      <div className="flex-1 space-y-1">
-                        <p className="text-sm font-medium">Order Number</p>
-                        <p className="text-sm font-mono">{ticket.order_number}</p>
-                      </div>
-                    </div>
-                  </>
-                )}
+            {/* Tags */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">Tags</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <TagsInput
+                  value={ticket.tags || []}
+                  onChange={(tags) => {
+                    updateMutation.mutate({
+                      field: "tags",
+                      value: tags,
+                      oldValue: ticket.tags || [],
+                    });
+                  }}
+                />
               </CardContent>
             </Card>
 
