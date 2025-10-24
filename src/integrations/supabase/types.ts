@@ -45,10 +45,13 @@ export type Database = {
           created_at: string
           customer_email: string
           customer_name: string
+          description: string | null
           id: string
+          order_number: string | null
           priority: Database["public"]["Enums"]["ticket_priority"]
           status: Database["public"]["Enums"]["ticket_status"]
           subject: string
+          tags: string[] | null
           ticket_number: number
           updated_at: string
         }
@@ -58,10 +61,13 @@ export type Database = {
           created_at?: string
           customer_email: string
           customer_name: string
+          description?: string | null
           id?: string
+          order_number?: string | null
           priority?: Database["public"]["Enums"]["ticket_priority"]
           status?: Database["public"]["Enums"]["ticket_status"]
           subject: string
+          tags?: string[] | null
           ticket_number?: number
           updated_at?: string
         }
@@ -71,10 +77,13 @@ export type Database = {
           created_at?: string
           customer_email?: string
           customer_name?: string
+          description?: string | null
           id?: string
+          order_number?: string | null
           priority?: Database["public"]["Enums"]["ticket_priority"]
           status?: Database["public"]["Enums"]["ticket_status"]
           subject?: string
+          tags?: string[] | null
           ticket_number?: number
           updated_at?: string
         }

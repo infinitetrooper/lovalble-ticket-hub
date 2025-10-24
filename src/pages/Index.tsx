@@ -5,6 +5,7 @@ import { TicketFilters, FilterState } from "@/components/tickets/TicketFilters";
 import { TicketTable } from "@/components/tickets/TicketTable";
 import { TicketTableSkeleton } from "@/components/tickets/TicketTableSkeleton";
 import { TicketPagination } from "@/components/tickets/TicketPagination";
+import { NewTicketForm } from "@/components/tickets/NewTicketForm";
 import { AlertCircle, Ticket } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -109,14 +110,17 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto p-6 space-y-6">
         {/* Header */}
-        <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
-            <Ticket className="h-6 w-6 text-primary-foreground" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
+              <Ticket className="h-6 w-6 text-primary-foreground" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight">Tickets</h1>
+              <p className="text-muted-foreground">Manage and track customer support tickets</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">Tickets</h1>
-            <p className="text-muted-foreground">Manage and track customer support tickets</p>
-          </div>
+          <NewTicketForm />
         </div>
 
         {/* Filters */}
