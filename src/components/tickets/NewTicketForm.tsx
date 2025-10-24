@@ -74,7 +74,7 @@ export function NewTicketForm() {
       priority: "medium",
       description: "",
       tags: "",
-      assignee_id: "",
+      assignee_id: "unassigned",
       order_number: "",
     },
   });
@@ -93,7 +93,7 @@ export function NewTicketForm() {
         priority: values.priority,
         description: values.description || null,
         tags: tagsArray,
-        assignee_id: values.assignee_id || null,
+        assignee_id: values.assignee_id === "unassigned" ? null : values.assignee_id || null,
         order_number: values.order_number || null,
       });
 
@@ -258,7 +258,7 @@ export function NewTicketForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="">Unassigned</SelectItem>
+                        <SelectItem value="unassigned">Unassigned</SelectItem>
                         {assignees.map((assignee) => (
                           <SelectItem key={assignee.id} value={assignee.id}>
                             {assignee.name}
