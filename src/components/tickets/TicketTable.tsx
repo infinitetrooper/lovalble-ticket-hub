@@ -1,4 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
+import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Table,
@@ -39,6 +40,8 @@ interface TicketTableProps {
 }
 
 export const TicketTable = ({ tickets, sortField, sortDirection, onSort }: TicketTableProps) => {
+  const navigate = useNavigate();
+  
   const SortButton = ({ field, children }: { field: string; children: React.ReactNode }) => (
     <Button
       variant="ghost"
@@ -86,7 +89,11 @@ export const TicketTable = ({ tickets, sortField, sortDirection, onSort }: Ticke
         </TableHeader>
         <TableBody>
           {tickets.map((ticket) => (
-            <TableRow key={ticket.id} className="hover:bg-muted/30 transition-colors">
+            <TableRow 
+              key={ticket.id} 
+              className="hover:bg-muted/30 transition-colors cursor-pointer"
+              onClick={() => navigate(`/ticket/${ticket.id}`)}
+            >
               <TableCell className="font-mono text-sm text-muted-foreground">
                 #{ticket.ticket_number}
               </TableCell>
