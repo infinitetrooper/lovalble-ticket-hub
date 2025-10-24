@@ -79,6 +79,39 @@ export type Database = {
         }
         Relationships: []
       }
+      conversations: {
+        Row: {
+          created_at: string
+          id: string
+          is_internal_note: boolean
+          message: string
+          sender_email: string | null
+          sender_name: string
+          sender_type: string
+          ticket_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_internal_note?: boolean
+          message: string
+          sender_email?: string | null
+          sender_name: string
+          sender_type: string
+          ticket_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_internal_note?: boolean
+          message?: string
+          sender_email?: string | null
+          sender_name?: string
+          sender_type?: string
+          ticket_id?: string
+        }
+        Relationships: []
+      }
       tickets: {
         Row: {
           assignee_id: string | null

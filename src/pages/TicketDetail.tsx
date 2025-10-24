@@ -16,6 +16,7 @@ import { formatDistanceToNow, format } from "date-fns";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
+import { ConversationTimeline } from "@/components/tickets/ConversationTimeline";
 
 const TicketDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -176,6 +177,9 @@ const TicketDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
+            {/* Conversation Timeline */}
+            <ConversationTimeline ticketId={id!} />
+
             {/* Editable Fields */}
             <Card>
               <CardHeader>
